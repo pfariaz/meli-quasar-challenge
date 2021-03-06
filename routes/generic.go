@@ -6,7 +6,7 @@ import (
 )
 
 func GenericRoutes(router *gin.Engine) {
-	generic := router.Group("generic")
+	generic := router.Group("")
 	{
 		generic.GET("/", controllers.GetHealthcheck)
 
