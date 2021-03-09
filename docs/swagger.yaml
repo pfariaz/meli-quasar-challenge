@@ -1,4 +1,138 @@
+definitions:
+  schemas.HTTPError:
+    properties:
+      message:
+        type: string
+    type: object
+  schemas.PositionResponseSchema:
+    properties:
+      x:
+        type: number
+      "y":
+        type: number
+    type: object
+  schemas.ProcessFullMessageRequestSchema:
+    properties:
+      satellites:
+        items:
+          $ref: '#/definitions/schemas.SatelliteRequestSchema'
+        type: array
+    required:
+    - satellites
+    type: object
+  schemas.ProcessSplitMessageRequestSchema:
+    properties:
+      distance:
+        type: number
+      message:
+        items:
+          type: string
+        type: array
+    required:
+    - distance
+    - message
+    type: object
+  schemas.SatelliteRequestSchema:
+    properties:
+      distance:
+        type: number
+      message:
+        items:
+          type: string
+        type: array
+      name:
+        type: string
+    required:
+    - distance
+    - message
+    - name
+    type: object
+  schemas.ShipResponseSchema:
+    properties:
+      message:
+        type: string
+      position:
+        $ref: '#/definitions/schemas.PositionResponseSchema'
+    type: object
 info:
   contact: {}
-paths: {}
+paths:
+  /topsecret/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Add satellites info
+        in: body
+        name: satellites
+        required: true
+        schema:
+          $ref: '#/definitions/schemas.ProcessFullMessageRequestSchema'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemas.ShipResponseSchema'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.HTTPError'
+      summary: Process Message given info by all satellites
+  /topsecret_split/{satellite_name}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: string enums
+        enum:
+        - kenobi
+        - skywalker
+        - sato
+        in: path
+        name: satellite_name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemas.ShipResponseSchema'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.HTTPError'
+      summary: Get location given info from 3 satellites
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: string enums
+        enum:
+        - kenobi
+        - skywalker
+        - sato
+        in: path
+        name: satellite_name
+        required: true
+        type: string
+      - description: Add satellite info
+        in: body
+        name: satellite
+        required: true
+        schema:
+          $ref: '#/definitions/schemas.ProcessSplitMessageRequestSchema'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.HTTPError'
+      summary: Process Message given info by each satellite
 swagger: "2.0"

@@ -23,7 +23,212 @@ var doc = `{
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
-    "paths": {}
+    "paths": {
+        "/topsecret/": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Process Message given info by all satellites",
+                "parameters": [
+                    {
+                        "description": "Add satellites info",
+                        "name": "satellites",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ProcessFullMessageRequestSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ShipResponseSchema"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/topsecret_split/{satellite_name}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get location given info from 3 satellites",
+                "parameters": [
+                    {
+                        "enum": [
+                            "kenobi",
+                            "skywalker",
+                            "sato"
+                        ],
+                        "type": "string",
+                        "description": "string enums",
+                        "name": "satellite_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ShipResponseSchema"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.HTTPError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Process Message given info by each satellite",
+                "parameters": [
+                    {
+                        "enum": [
+                            "kenobi",
+                            "skywalker",
+                            "sato"
+                        ],
+                        "type": "string",
+                        "description": "string enums",
+                        "name": "satellite_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Add satellite info",
+                        "name": "satellite",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ProcessSplitMessageRequestSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.HTTPError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "schemas.HTTPError": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "schemas.PositionResponseSchema": {
+            "type": "object",
+            "properties": {
+                "x": {
+                    "type": "number"
+                },
+                "y": {
+                    "type": "number"
+                }
+            }
+        },
+        "schemas.ProcessFullMessageRequestSchema": {
+            "type": "object",
+            "required": [
+                "satellites"
+            ],
+            "properties": {
+                "satellites": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/schemas.SatelliteRequestSchema"
+                    }
+                }
+            }
+        },
+        "schemas.ProcessSplitMessageRequestSchema": {
+            "type": "object",
+            "required": [
+                "distance",
+                "message"
+            ],
+            "properties": {
+                "distance": {
+                    "type": "number"
+                },
+                "message": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "schemas.SatelliteRequestSchema": {
+            "type": "object",
+            "required": [
+                "distance",
+                "message",
+                "name"
+            ],
+            "properties": {
+                "distance": {
+                    "type": "number"
+                },
+                "message": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "schemas.ShipResponseSchema": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "position": {
+                    "$ref": "#/definitions/schemas.PositionResponseSchema"
+                }
+            }
+        }
+    }
 }`
 
 type swaggerInfo struct {
