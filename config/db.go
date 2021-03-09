@@ -15,7 +15,7 @@ func ConnectDatabase() {
 		panic("Failed to connect to database!")
 	}
 
-	database.AutoMigrate(&models.Satellite{})
+	database.AutoMigrate(&models.SatelliteMessage{})
 
 	DB = database
 
