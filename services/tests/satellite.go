@@ -4,6 +4,7 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/pfariaz/meli-quasar-challenge/lib"
 	"github.com/pfariaz/meli-quasar-challenge/models"
 	"github.com/pfariaz/meli-quasar-challenge/services"
 )
@@ -11,9 +12,9 @@ import (
 func TestGetSatellitesSuccessfull(t *testing.T) {
 
 	var expectedSatelliteLocation map[string]models.PointLocation
-	expectedSatelliteLocation["kenobi"] = models.PointLocation{X: -500, Y: -200}
-	expectedSatelliteLocation["skywalker"] = models.PointLocation{X: 100, Y: -100}
-	expectedSatelliteLocation["sato"] = models.PointLocation{X: 500, Y: 100}
+	expectedSatelliteLocation[lib.KenobiSatelliteName] = models.PointLocation{X: -500, Y: -200}
+	expectedSatelliteLocation[lib.SkywalkerSatelliteName] = models.PointLocation{X: 100, Y: -100}
+	expectedSatelliteLocation[lib.SatoSatelliteName] = models.PointLocation{X: 500, Y: 100}
 
 	services.LoadSatellites()
 
