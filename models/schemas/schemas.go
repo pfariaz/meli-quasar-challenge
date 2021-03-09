@@ -24,3 +24,7 @@ type ShipResponseSchema struct {
 	Position PositionResponseSchema `json:"position"`
 	Message  string                 `json:"message"`
 }
+
+type HTTPError struct {
+	Error string `json:"message"`
+}
