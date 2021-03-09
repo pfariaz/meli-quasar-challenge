@@ -29,22 +29,22 @@ func ProcessMessageLocation(c *gin.Context) {
 		return
 	}
 
-	qtySatellites := len(request.Sattelites)
+	qtySatellites := len(request.Satellites)
 	if qtySatellites < 3 || qtySatellites > 3 {
-		c.JSON(http.StatusBadRequest, schemas.HTTPError{Error: "We need to provide the information of the 3 known sattelites (kenobi, skywalker and sato)"})
+		c.JSON(http.StatusBadRequest, schemas.HTTPError{Error: "We need to provide the information of the 3 known satellites (kenobi, skywalker and sato)"})
 		return
 	}
 
-	var givenSattelites []string
+	var givenSatellites []string
 	var distances []float64
 	var messages [][]string
-	for _, sattelite := range request.Sattelites {
-		givenSattelites = append(givenSattelites, sattelite.Name)
+	for _, sattelite := range request.Satellites {
+		givenSatellites = append(givenSatellites, sattelite.Name)
 		distances = append(distances, sattelite.Distance)
 		messages = append(messages, sattelite.Message)
 	}
 
-	if !reflect.DeepEqual(givenSattelites, services.GetSatellitesNames()) {
+	if !reflect.DeepEqual(givenSatellites, services.GetSatellitesNames()) {
 		c.JSON(http.StatusBadRequest, schemas.HTTPError{Error: "we cannot determine the location since we receive unknown satellites (known satellites are kenobi, skywalker and sato)"})
 		return
 	}

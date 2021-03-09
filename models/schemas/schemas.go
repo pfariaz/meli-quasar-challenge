@@ -7,7 +7,7 @@ type SatelliteRequestSchema struct {
 }
 
 type ProcessFullMessageRequestSchema struct {
-	Sattelites []SatelliteRequestSchema `json:"satellites" binding:"required"`
+	Satellites []SatelliteRequestSchema `json:"satellites" binding:"required"`
 }
 
 type ProcessSplitMessageRequestSchema struct {
