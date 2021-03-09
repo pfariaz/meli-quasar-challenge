@@ -137,7 +137,8 @@ Please make sure to update tests as appropriate.
 - https://www.udemy.com/course/golang-how-to-design-and-build-rest-microservices-in-go
 - https://www.udemy.com/course/building-modern-web-applications-with-go
 - https://blog.logrocket.com/how-to-build-a-rest-api-with-golang-using-gin-and-gorm/
-- 
+- https://www.youtube.com/watch?v=ktPuxq3UVX4
+- https://tutorialedge.net/golang/parsing-json-with-golang/
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
