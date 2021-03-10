@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"net/http"
-	"reflect"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -44,7 +43,7 @@ func ProcessMessageLocation(c *gin.Context) {
 		messages = append(messages, sattelite.Message)
 	}
 
-	if !reflect.DeepEqual(givenSatellites, services.GetSatellitesNames()) {
+	if !lib.Equal(givenSatellites, services.GetSatellitesNames()) {
 		c.JSON(http.StatusBadRequest, schemas.HTTPError{Error: "we cannot determine the location since we receive unknown satellites (known satellites are kenobi, skywalker and sato)"})
 		return
 	}
