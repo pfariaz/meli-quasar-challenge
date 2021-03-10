@@ -51,6 +51,10 @@ func ProcessMessageLocation(c *gin.Context) {
 	message := services.GetMessage(messages...)
 	xPosition, yPosition := services.GetLocation(distances...)
 
+	if xPosition == 0 || yPosition == 0 || len(message) == 0 {
+		c.Writer.WriteHeader(http.StatusNotFound)
+	}
+
 	var messageLocationShip = schemas.ShipResponseSchema{
 		Position: schemas.PositionResponseSchema{
 			X: xPosition,

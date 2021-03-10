@@ -19,6 +19,11 @@ func GetMessage(messages ...[]string) (msg string) {
 			}
 		}
 	}
+
+	if len(words_by_position) == 0 {
+		return
+	}
+
 	words := []string{}
 	for i := 0; i < len(words_by_position); i++ {
 		words = append(words, words_by_position[i])
