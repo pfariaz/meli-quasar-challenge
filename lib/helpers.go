@@ -34,7 +34,7 @@ func Equal(a, b []string) bool {
 func GetBaseURL() string {
 	environment := os.Getenv("GIN_MODE")
 	host := os.Getenv("HOST")
-	if environment == "release" {
+	if environment != "release" {
 		host = fmt.Sprintf("%s:%s", host, os.Getenv("PORT"))
 	}
 	return host
