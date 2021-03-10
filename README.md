@@ -15,7 +15,11 @@ The rebel intelligence service has detected a call for help from an Imperial car
 
 As the rebel communications chief, your mission is to create a Golang program that returns the source and content of the distress message. For this, you have three satellites that will allow you to triangulate the position, but be careful! the message may not reach each satellite in full due to the asteroid field in front of the spacecraft.
 
-## Installation
+## Continous integration (CI)
+
+This repository is seamlessly integrated, so every time you hit a commit on the `main` branch, a Heroku pipeline will run, running all unit tests on the ci circle, and then Heroku will release the latest version (only if tests pass)
+
+## Installation (Direct)
 
 First, install all dependencies:
 ```bash
@@ -27,11 +31,32 @@ Then you can start the server:
 go run main.go
 ```
 
+## Installation (Docker)
+If you want to start the application via docker:
+
+First, you need to build the image:
+```bash
+docker build -t meli-quasar-challenge .
+```
+Then you have 2 alternatives to run the image:
+
+Run in console
+```bash
+docker run -it -p 8080:80 -e "HOST=localhost" -e "PORT=8080" meli-quasar-challenge
+```
+
+Or in background
+```bash
+docker run -d -p 8080:8080 -e "HOST=localhost" -e "PORT=8080" meli-quasar-challenge
+```
+
 ## Usage
 
-When Go server is running, you can go to the `http://localhost:8080/` in your favorite web browser
+When Go server is running, you can go to the `http://localhost:8080/` in your favorite web browser 
 
-### Run tests
+Or if you prefer to visit the implemented version, you can go to to https://meli-quasar-challenge.herokuapp.com/
+
+## Run tests
 To run all tests suites, excecute this command at projects home directory:
 
 ```bash
@@ -89,9 +114,14 @@ If you deployed to any cloud service this service, you can check all API endpoin
 } 
 ```
 
-##### Response (If we do not provide the information of the 3 satellites or the message or position cannot be determined):
+##### Response (If we do not provide the information of the 3 satellites or the message):
 ```javascript
-404 - Not Found 
+400 - Bad request
+```
+
+##### Response (If the position or message cannot be determined):
+```javascript
+404 - Bad request
 ```
 
 #### - Inform message fragment and distance by satellite `POST /topsecret_split/:satellite_name`
