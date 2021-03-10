@@ -1,6 +1,10 @@
 package lib
 
-import "sort"
+import (
+	"fmt"
+	"os"
+	"sort"
+)
 
 func Contains(arrayToCheck []string, str string) bool {
 	for _, value := range arrayToCheck {
@@ -25,4 +29,13 @@ func Equal(a, b []string) bool {
 		}
 	}
 	return true
+}
+
+func GetBaseURL() string {
+	environment := os.Getenv("GIN_MODE")
+	host := os.Getenv("HOST")
+	if environment == "release" {
+		host = fmt.Sprintf("%s:%s", host, os.Getenv("PORT"))
+	}
+	return host
 }
