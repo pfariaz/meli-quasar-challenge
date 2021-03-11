@@ -16,15 +16,15 @@ func Contains(arrayToCheck []string, str string) bool {
 	return false
 }
 
-func Equal(a, b []string) bool {
-	if len(a) != len(b) {
+func Equal(firstArrayToCompare, secondArrayToCompare []string) bool {
+	if len(firstArrayToCompare) != len(secondArrayToCompare) {
 		return false
 	}
-	sort.Strings(a)
-	sort.Strings(b)
+	sort.Strings(firstArrayToCompare)
+	sort.Strings(secondArrayToCompare)
 
-	for i, v := range a {
-		if v != b[i] {
+	for index, value := range firstArrayToCompare {
+		if value != secondArrayToCompare[index] {
 			return false
 		}
 	}
