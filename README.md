@@ -169,6 +169,7 @@ Please make sure to update tests as appropriate.
 - https://blog.logrocket.com/how-to-build-a-rest-api-with-golang-using-gin-and-gorm/
 - https://www.youtube.com/watch?v=ktPuxq3UVX4
 - https://tutorialedge.net/golang/parsing-json-with-golang/
+- https://jarifibrahim.github.io/blog/test-cleanup-with-gorm-hooks/
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
