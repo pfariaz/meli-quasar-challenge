@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/pfariaz/meli-quasar-challenge/config"
 	"github.com/pfariaz/meli-quasar-challenge/docs"
-	"github.com/pfariaz/meli-quasar-challenge/lib"
+	"github.com/pfariaz/meli-quasar-challenge/lib/helpers"
 	"github.com/pfariaz/meli-quasar-challenge/routes"
 	"github.com/pfariaz/meli-quasar-challenge/services"
 )
@@ -14,7 +14,7 @@ func main() {
 	docs.SwaggerInfo.Title = "Quasar Fire Meli Test API"
 	docs.SwaggerInfo.Description = "This is MercadoLibre test API"
 	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = lib.GetBaseURL()
+	docs.SwaggerInfo.Host = helpers.GetBaseURL()
 	docs.SwaggerInfo.BasePath = "/api/v1"
 	docs.SwaggerInfo.Schemes = []string{"https"}
 

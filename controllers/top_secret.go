@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/pfariaz/meli-quasar-challenge/config"
-	"github.com/pfariaz/meli-quasar-challenge/lib"
+	"github.com/pfariaz/meli-quasar-challenge/lib/helpers"
 	"github.com/pfariaz/meli-quasar-challenge/models"
 	"github.com/pfariaz/meli-quasar-challenge/models/schemas"
 	"github.com/pfariaz/meli-quasar-challenge/services"
@@ -43,14 +43,13 @@ func ProcessMessageLocation(c *gin.Context) {
 		messages = append(messages, sattelite.Message)
 	}
 
-	if !lib.Equal(givenSatellites, services.GetSatellitesNames()) {
+	if !helpers.Equal(givenSatellites, services.GetSatellitesNames()) {
 		c.JSON(http.StatusBadRequest, schemas.HTTPError{Error: "we cannot determine the location since we receive unknown satellites (known satellites are kenobi, skywalker and sato)"})
 		return
 	}
 
 	message := services.GetMessage(messages...)
 	xPosition, yPosition := services.GetLocation(distances...)
-
 	if xPosition == 0 || yPosition == 0 || len(message) == 0 {
 		c.Writer.WriteHeader(http.StatusNotFound)
 	}
@@ -83,7 +82,7 @@ func ProcessPartialMessageLocation(c *gin.Context) {
 		return
 	}
 
-	if !lib.Contains(services.GetSatellitesNames(), satelliteName) {
+	if !helpers.Contains(services.GetSatellitesNames(), satelliteName) {
 		c.JSON(http.StatusBadRequest, schemas.HTTPError{Error: "We need you to provide us with the information of the 3 known satellites (kenobi, skywalker or sato)"})
 		return
 	}

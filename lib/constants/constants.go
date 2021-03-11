@@ -1,4 +1,4 @@
-package lib
+package constants
 
 const SatellitesPath = "satellites.json"
 

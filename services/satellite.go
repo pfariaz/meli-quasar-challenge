@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/pfariaz/meli-quasar-challenge/lib"
+	"github.com/pfariaz/meli-quasar-challenge/lib/constants"
 	"github.com/pfariaz/meli-quasar-challenge/models"
 )
 
@@ -22,7 +22,7 @@ func LoadSatellites() {
 		Satellites []SatelliteJSON `json:"satellites"`
 	}
 
-	jsonFile, err := os.Open(lib.SatellitesPath)
+	jsonFile, err := os.Open(constants.SatellitesPath)
 	if err != nil {
 		panic(err)
 	}
